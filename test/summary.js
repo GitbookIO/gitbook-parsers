@@ -30,6 +30,10 @@ describe('Summary normalization', function () {
             title: "Test 4",
             path: "./test1.md"
         },
+        {
+            title: "gitbook.com",
+            path: "https://www.gitbook.com/"
+        }
     ]);
 
     it('should normalize paths', function() {
@@ -39,7 +43,7 @@ describe('Summary normalization', function () {
     });
 
     it('should have unique entry by filename', function() {
-        assert.equal(summary.chapters.length, 4);
+        assert.equal(summary.chapters.length, 5);
     });
 
     it('should normalize levels', function() {
@@ -72,5 +76,9 @@ describe('Summary normalization', function () {
         assert.equal(summaryWithIntro.chapters[0].path, "test1.md");
         assert.equal(summaryWithIntro.chapters[1].path, "intro.md");
         assert.equal(summaryWithIntro.chapters.length, 2);
+    });
+
+    it('should not change external link after normalization', function() {
+        assert.equal(summary.chapters[4].path, "https://www.gitbook.com/");
     });
 });
